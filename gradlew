@@ -29,7 +29,7 @@
 #
 #           ksh Gradle
 #
-#   (2) Alarm the JAVA_HOME variable to point to where your JDK is. If JAVA_HOME
+#   (2) Align the JAVA_HOME variable to point to where your JDK is. If JAVA_HOME
 #       is not set in your environment, you can specify it here.
 #
 ##############################################################################
@@ -193,7 +193,7 @@ fi
 eval "set -- $(
     printf '%s\n' "$DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS" |
     xargs -n1 |
-    sed ' s~[^-.:528alnum:]~\\&~g; ' |
+    sed ' s~[^-.:[:alnum:]]~\\&~g; ' |
     tr '\n' ' '
 )" '"$@"'
 
