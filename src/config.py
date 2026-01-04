@@ -90,3 +90,19 @@ KEYWORD_DISPLAY_LENGTH = 80
 DATA_DIR = "data"
 INPUT_FILE = "sample_emails.csv"
 OUTPUT_FILE = "output_results.csv"
+RESULTS_DIR = "results"
+CHARTS_DIR = "results/charts"
+DASHBOARD_FILE = "results/urgency_dashboard.html"
+
+# Chart colors
+CHART_COLORS = {
+    'critical': '#ff4444',  # Red
+    'high': '#ff9944',      # Orange
+    'medium': '#ffdd44',    # Yellow
+    'low': '#44ff44',       # Green
+}
+
+# Chart settings
+CHART_DPI = 300
+CHART_WIDTH = 12
+CHART_HEIGHT = 8
