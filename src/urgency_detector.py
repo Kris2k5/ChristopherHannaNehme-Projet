@@ -25,6 +25,7 @@ class UrgencyDetector:
     def calculate_keyword_score(self, text: str, keywords_dict: Dict) -> Tuple[int, List[str]]:
         """
         Calculate urgency score from keywords in text
+        Each unique keyword is counted only ONCE to prevent over-counting
         
         Args:
             text: Text to analyze
@@ -43,38 +44,6 @@ class UrgencyDetector:
                 found_keywords.append(keyword)
         
         return score, found_keywords
-    
-    def analyze_subject(self, subject: str) -> Tuple[int, List[str]]:
-        """
-        Analyze subject line for urgency with higher weight
-        
-        Args:
-            subject: Email subject line
-            
-        Returns:
-            Tuple of (weighted score, list of found keywords)
-        """
-        subject_clean = self.analyzer.preprocess_text(subject)
-        total_score = 0
-        all_keywords = []
-        
-        # Check critical keywords
-        for keywords_dict in self.urgency_keywords.values():
-            score, keywords = self.calculate_keyword_score(subject_clean, keywords_dict)
-            total_score += score
-            all_keywords.extend(keywords)
-        
-        # Check time keywords
-        score, keywords = self.calculate_keyword_score(subject_clean, self.time_keywords)
-        total_score += score
-        all_keywords.extend(keywords)
-        
-        # Check action keywords
-        score, keywords = self.calculate_keyword_score(subject_clean, self.action_keywords)
-        total_score += score
-        all_keywords.extend(keywords)
-        
-        return total_score, all_keywords
     
     def contains_time_constraint(self, text: str) -> Tuple[bool, int, List[str]]:
         """
@@ -106,7 +75,12 @@ class UrgencyDetector:
     
     def calculate_urgency_score(self, subject: str, body: str) -> Tuple[int, List[str]]:
         """
-        Calculate overall urgency score for an email
+        Calculate overall urgency score for an email with proper score distribution
+        
+        Implementation prevents duplicate keyword counting:
+        - Body keywords counted once (max 70 points from body)
+        - Subject gets separate analysis with bonus points (max 30 points)
+        - Final score capped at 100
         
         Args:
             subject: Email subject line
@@ -115,34 +89,58 @@ class UrgencyDetector:
         Returns:
             Tuple of (final score, list of all flagged keywords)
         """
-        urgency_score = 0
-        all_keywords = []
+        body_score = 0
+        body_keywords = set()  # Use set to track unique keywords
         
         # Analyze body for critical keywords
         body_clean = self.analyzer.preprocess_text(body)
         for category, keywords_dict in self.urgency_keywords.items():
             score, keywords = self.calculate_keyword_score(body_clean, keywords_dict)
-            urgency_score += score
-            all_keywords.extend(keywords)
+            body_score += score
+            body_keywords.update(keywords)
         
         # Check for time-based urgency in body
         has_time, time_score, time_keywords = self.contains_time_constraint(body)
-        urgency_score += time_score
-        all_keywords.extend(time_keywords)
+        body_score += time_score
+        body_keywords.update(time_keywords)
         
         # Check for action requests in body
         has_action, action_score, action_keywords = self.contains_action_words(body)
-        urgency_score += action_score
-        all_keywords.extend(action_keywords)
+        body_score += action_score
+        body_keywords.update(action_keywords)
         
-        # Analyze subject line with higher weight
-        subject_score, subject_keywords = self.analyze_subject(subject)
-        weighted_subject_score = int(subject_score * self.subject_multiplier)
-        urgency_score += weighted_subject_score
-        all_keywords.extend([f"{kw} (subject)" for kw in subject_keywords])
+        # Cap body score at 70 points maximum
+        body_score = min(body_score, 70)
         
-        # Cap the final score at MAX_URGENCY_SCORE
-        final_score = min(urgency_score, MAX_URGENCY_SCORE)
+        # Analyze subject line separately for bonus points (max 30)
+        subject_clean = self.analyzer.preprocess_text(subject)
+        subject_score = 0
+        subject_keywords = set()
+        
+        # Check all keyword categories in subject
+        for category, keywords_dict in self.urgency_keywords.items():
+            score, keywords = self.calculate_keyword_score(subject_clean, keywords_dict)
+            subject_score += score
+            subject_keywords.update(keywords)
+        
+        # Check time keywords in subject
+        score, keywords = self.calculate_keyword_score(subject_clean, self.time_keywords)
+        subject_score += score
+        subject_keywords.update(keywords)
+        
+        # Check action keywords in subject
+        score, keywords = self.calculate_keyword_score(subject_clean, self.action_keywords)
+        subject_score += score
+        subject_keywords.update(keywords)
+        
+        # Cap subject bonus at 30 points
+        subject_bonus = min(subject_score, 30)
+        
+        # Calculate final score (max 100)
+        final_score = min(body_score + subject_bonus, MAX_URGENCY_SCORE)
+        
+        # Combine keywords for display
+        all_keywords = list(body_keywords) + [f"{kw} (subject)" for kw in subject_keywords]
         
         return final_score, all_keywords
     
