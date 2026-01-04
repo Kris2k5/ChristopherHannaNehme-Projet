@@ -6,7 +6,7 @@ Run this script to analyze email urgency and generate results
 import os
 import pandas as pd
 from src.urgency_detector import UrgencyDetector
-from src.config import DATA_DIR, INPUT_FILE, OUTPUT_FILE
+from src.config import DATA_DIR, INPUT_FILE, OUTPUT_FILE, KEYWORD_DISPLAY_LENGTH
 
 
 def load_emails(filepath: str) -> pd.DataFrame:
@@ -17,6 +17,8 @@ def load_emails(filepath: str) -> pd.DataFrame:
         return df
     except FileNotFoundError:
         print(f"Error: File '{filepath}' not found.")
+        print(f"Please ensure the file exists at: {os.path.abspath(filepath)}")
+        print(f"Expected CSV format: email_id,sender,subject,body,timestamp")
         return None
     except Exception as e:
         print(f"Error loading emails: {e}")
@@ -83,7 +85,7 @@ def display_results(results_df: pd.DataFrame, stats: dict):
         print(f"{idx}. [Score: {row['urgency_score']}] \"{row['subject']}\"")
         print(f"   From: {row['sender']}")
         print(f"   Level: {row['urgency_level']}")
-        print(f"   Keywords: {row['flagged_keywords'][:80]}...")
+        print(f"   Keywords: {row['flagged_keywords'][:KEYWORD_DISPLAY_LENGTH]}...")
         print()
 
 

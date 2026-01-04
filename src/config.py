@@ -80,6 +80,12 @@ URGENCY_THRESHOLDS = {
 # Subject line weight multiplier
 SUBJECT_WEIGHT_MULTIPLIER = 1.5
 
+# Score constraints
+MAX_URGENCY_SCORE = 100
+
+# Display settings
+KEYWORD_DISPLAY_LENGTH = 80
+
 # Paths
 DATA_DIR = "data"
 INPUT_FILE = "sample_emails.csv"

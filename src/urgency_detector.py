@@ -6,7 +6,7 @@ Main urgency detection engine with rule-based keyword matching
 from typing import Dict, List, Tuple
 from src.config import (
     URGENCY_KEYWORDS, TIME_KEYWORDS, ACTION_KEYWORDS,
-    URGENCY_THRESHOLDS, SUBJECT_WEIGHT_MULTIPLIER
+    URGENCY_THRESHOLDS, SUBJECT_WEIGHT_MULTIPLIER, MAX_URGENCY_SCORE
 )
 from src.email_analyzer import EmailAnalyzer
 
@@ -141,8 +141,8 @@ class UrgencyDetector:
         urgency_score += weighted_subject_score
         all_keywords.extend([f"{kw} (subject)" for kw in subject_keywords])
         
-        # Cap the final score at 100
-        final_score = min(urgency_score, 100)
+        # Cap the final score at MAX_URGENCY_SCORE
+        final_score = min(urgency_score, MAX_URGENCY_SCORE)
         
         return final_score, all_keywords
     

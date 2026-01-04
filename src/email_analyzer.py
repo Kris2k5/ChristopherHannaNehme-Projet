@@ -10,9 +10,6 @@ from typing import Dict, List, Tuple
 class EmailAnalyzer:
     """Analyzes email content and extracts urgency indicators"""
     
-    def __init__(self):
-        pass
-    
     def preprocess_text(self, text: str) -> str:
         """
         Preprocess text by converting to lowercase and removing extra spaces
