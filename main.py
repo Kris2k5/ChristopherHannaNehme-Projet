@@ -92,8 +92,15 @@ def display_results(results_df: pd.DataFrame, stats: dict):
 def save_results(results_df: pd.DataFrame, output_path: str):
     """Save results to CSV file"""
     try:
-        # Add priority rank
-        results_df['priority_rank'] = results_df['urgency_score'].rank(ascending=False, method='min').astype(int)
+        # Sort by urgency_score (descending) and timestamp (ascending for ties)
+        # Earlier emails get higher priority when scores are equal
+        results_df = results_df.sort_values(
+            by=['urgency_score', 'timestamp'], 
+            ascending=[False, True]
+        ).reset_index(drop=True)
+        
+        # Add unique priority rank (1 to N)
+        results_df['priority_rank'] = range(1, len(results_df) + 1)
         
         # Reorder columns
         columns = ['email_id', 'sender', 'subject', 'urgency_score', 'urgency_level', 

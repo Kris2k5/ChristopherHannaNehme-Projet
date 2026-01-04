@@ -5,68 +5,68 @@ Defines urgency keywords, weights, thresholds, and scoring rules
 
 # Urgency Keywords with Weights
 URGENCY_KEYWORDS = {
-    # Critical keywords (weight: 20)
+    # Critical keywords (weight: 15)
     'critical': {
-        'urgent': 20,
-        'asap': 20,
-        'immediately': 20,
-        'emergency': 20,
-        'critical': 20,
-        'now': 20,
+        'urgent': 15,
+        'asap': 15,
+        'immediately': 15,
+        'emergency': 15,
+        'critical': 15,
+        'now': 15,
     },
-    # High keywords (weight: 15)
+    # High keywords (weight: 12)
     'high': {
-        'soon': 15,
-        'quickly': 15,
-        'time-sensitive': 15,
-        'deadline': 15,
-        'urgent need': 15,
-        'expire': 15,
-        'expires': 15,
-        'expiring': 15,
-        'time constraint': 15,
+        'soon': 12,
+        'quickly': 12,
+        'time-sensitive': 12,
+        'deadline': 12,
+        'urgent need': 12,
+        'expire': 12,
+        'expires': 12,
+        'expiring': 12,
+        'time constraint': 12,
     },
-    # Medium keywords (weight: 10)
+    # Medium keywords (weight: 8)
     'medium': {
-        'please': 10,
-        'need': 10,
-        'important': 10,
-        'waiting': 10,
-        'required': 10,
-        'necessary': 10,
-        'response': 10,
-        'follow up': 10,
-        'follow-up': 10,
+        'please': 8,
+        'need': 8,
+        'important': 8,
+        'waiting': 8,
+        'required': 8,
+        'necessary': 8,
+        'response': 8,
+        'follow up': 8,
+        'follow-up': 8,
     }
 }
 
-# Time-based urgency indicators (weight: 15)
+# Time-based urgency indicators (weight: 12)
 TIME_KEYWORDS = {
-    'today': 15,
-    'by eod': 15,
-    'end of day': 15,
-    'within 24 hours': 15,
-    'by 5pm': 15,
-    'by 5 pm': 15,
-    'this afternoon': 15,
-    'this morning': 15,
-    'by noon': 15,
-    'within hours': 15,
-    'within hour': 15,
+    'today': 12,
+    'by eod': 12,
+    'end of day': 12,
+    'within 24 hours': 12,
+    'by 5pm': 12,
+    'by 5 pm': 12,
+    'this afternoon': 12,
+    'this morning': 12,
+    'by noon': 12,
+    'within hours': 12,
+    'within hour': 12,
 }
 
-# Action request keywords (weight: 10)
+# Action request keywords (weight: 8)
 ACTION_KEYWORDS = {
-    'call me': 10,
-    'need response': 10,
-    'please respond': 10,
-    'get back': 10,
-    'respond asap': 10,
-    'waiting for': 10,
-    'need to know': 10,
-    'let me know': 10,
-    'confirm': 10,
-    'approval needed': 10,
+    'call me': 8,
+    'need response': 8,
+    'please respond': 8,
+    'get back': 8,
+    'respond asap': 8,
+    'waiting for': 8,
+    'need to know': 8,
+    'let me know': 8,
+    'confirm': 8,
+    'approval needed': 8,
 }
 
 # Urgency level thresholds
