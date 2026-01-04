@@ -42,6 +42,7 @@ class TextPreprocessor:
     def remove_special_characters(self, text: str) -> str:
         """Remove special characters except basic punctuation."""
         # Keep basic punctuation that's important for sentiment
+        # Remove everything except: letters, numbers, whitespace, and .!?,-
         pattern = r'[^a-zA-Z0-9\s.!?,\-]'
         return re.sub(pattern, '', text)
     

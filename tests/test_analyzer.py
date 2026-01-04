@@ -126,8 +126,10 @@ class TestDataPreprocessing:
         text = "This is #awesome #great"
         result = preprocessor.remove_hashtags(text)
         
-        # Hashtags are kept by default in config
-        assert '#' not in result or '#' in result  # Depends on config
+        # remove_hashtags removes the # but keeps the word
+        assert '#' not in result
+        assert 'awesome' in result
+        assert 'great' in result
     
     def test_clean_text_integration(self):
         """Test full text cleaning pipeline."""
