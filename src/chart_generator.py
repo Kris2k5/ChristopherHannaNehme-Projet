@@ -7,8 +7,6 @@ import os
 from typing import Dict
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-from datetime import datetime
 from src.config import CHART_COLORS, CHART_DPI, CHART_WIDTH, CHART_HEIGHT, CHARTS_DIR
 
 
@@ -147,10 +145,10 @@ class ChartGenerator:
             linewidth=0.5
         )
         
-        # Add threshold lines
-        ax.axhline(y=75, color='red', linestyle='--', linewidth=2, alpha=0.7, label='Critical threshold (76)')
-        ax.axhline(y=50, color='orange', linestyle='--', linewidth=2, alpha=0.7, label='High threshold (51)')
-        ax.axhline(y=25, color='gold', linestyle='--', linewidth=2, alpha=0.7, label='Medium threshold (26)')
+        # Add threshold lines at actual threshold values
+        ax.axhline(y=76, color='red', linestyle='--', linewidth=2, alpha=0.7, label='Critical threshold (76)')
+        ax.axhline(y=51, color='orange', linestyle='--', linewidth=2, alpha=0.7, label='High threshold (51)')
+        ax.axhline(y=26, color='gold', linestyle='--', linewidth=2, alpha=0.7, label='Medium threshold (26)')
         
         # Customize chart
         ax.set_xlabel('Email ID (sorted by priority)', fontsize=14, weight='bold')

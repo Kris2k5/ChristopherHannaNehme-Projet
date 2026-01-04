@@ -5,6 +5,7 @@ Creates interactive HTML dashboard for email urgency visualization
 
 import os
 from typing import Dict
+from collections import Counter
 import pandas as pd
 from datetime import datetime
 from src.config import DASHBOARD_FILE, CHART_COLORS
@@ -79,7 +80,6 @@ class DashboardGenerator:
                 all_keywords.extend(keywords)
         
         if all_keywords:
-            from collections import Counter
             keyword_counts = Counter(all_keywords)
             stats['top_keywords'] = keyword_counts.most_common(5)
         else:
