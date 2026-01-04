@@ -1,63 +1,86 @@
 """
-Configuration settings for the Social Media Sentiment Analysis project.
+Configuration for Email Urgency Detection System
+Defines urgency keywords, weights, thresholds, and scoring rules
 """
-import os
 
-# Project paths
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(BASE_DIR, 'data')
-RESULTS_DIR = os.path.join(BASE_DIR, 'results')
-SRC_DIR = os.path.join(BASE_DIR, 'src')
-
-# Data files
-SAMPLE_DATA_FILE = os.path.join(DATA_DIR, 'sample_social_media.csv')
-OUTPUT_FILE = os.path.join(DATA_DIR, 'output_results.csv')
-
-# Sentiment Analysis Settings
-SENTIMENT_THRESHOLDS = {
-    'positive': 0.05,      # Compound score > 0.05 is positive
-    'negative': -0.05,     # Compound score < -0.05 is negative
-    'neutral_min': -0.05,  # Between -0.05 and 0.05 is neutral
-    'neutral_max': 0.05
+# Urgency Keywords with Weights
+URGENCY_KEYWORDS = {
+    # Critical keywords (weight: 20)
+    'critical': {
+        'urgent': 20,
+        'asap': 20,
+        'immediately': 20,
+        'emergency': 20,
+        'critical': 20,
+        'now': 20,
+    },
+    # High keywords (weight: 15)
+    'high': {
+        'soon': 15,
+        'quickly': 15,
+        'time-sensitive': 15,
+        'deadline': 15,
+        'urgent need': 15,
+        'expire': 15,
+        'expires': 15,
+        'expiring': 15,
+        'time constraint': 15,
+    },
+    # Medium keywords (weight: 10)
+    'medium': {
+        'please': 10,
+        'need': 10,
+        'important': 10,
+        'waiting': 10,
+        'required': 10,
+        'necessary': 10,
+        'response': 10,
+        'follow up': 10,
+        'follow-up': 10,
+    }
 }
 
-# Alert System Settings
-ALERT_SETTINGS = {
-    'negative_threshold': -0.5,     # Flag comments with compound score < -0.5
-    'spike_window': 10,             # Number of consecutive negative comments to trigger alert
-    'min_negative_ratio': 0.7,      # Minimum ratio of negative comments in window
+# Time-based urgency indicators (weight: 15)
+TIME_KEYWORDS = {
+    'today': 15,
+    'by eod': 15,
+    'end of day': 15,
+    'within 24 hours': 15,
+    'by 5pm': 15,
+    'by 5 pm': 15,
+    'this afternoon': 15,
+    'this morning': 15,
+    'by noon': 15,
+    'within hours': 15,
+    'within hour': 15,
 }
 
-# Visualization Settings
-VIZ_SETTINGS = {
-    'figure_size': (12, 8),
-    'pie_colors': ['#2ecc71', '#95a5a6', '#e74c3c'],  # Green, Gray, Red
-    'histogram_bins': 30,
-    'dpi': 300,
-    'style': 'seaborn-v0_8-darkgrid',
-    'max_words_wordcloud': 100,
-    'wordcloud_width': 800,
-    'wordcloud_height': 400,
+# Action request keywords (weight: 10)
+ACTION_KEYWORDS = {
+    'call me': 10,
+    'need response': 10,
+    'please respond': 10,
+    'get back': 10,
+    'respond asap': 10,
+    'waiting for': 10,
+    'need to know': 10,
+    'let me know': 10,
+    'confirm': 10,
+    'approval needed': 10,
 }
 
-# Text Preprocessing Settings
-PREPROCESSING = {
-    'remove_urls': True,
-    'remove_mentions': True,
-    'remove_hashtags': False,  # Keep hashtags as they contain sentiment
-    'remove_special_chars': True,
-    'lowercase': True,
-    'remove_stopwords': False,  # Keep stopwords for VADER (it uses them)
-    'min_text_length': 3,
+# Urgency level thresholds
+URGENCY_THRESHOLDS = {
+    'critical': 76,  # 76-100
+    'high': 51,      # 51-75
+    'medium': 26,    # 26-50
+    'low': 0,        # 0-25
 }
 
-# Supported platforms
-SUPPORTED_PLATFORMS = ['Twitter', 'Facebook', 'Instagram', 'Reddit', 'TikTok']
+# Subject line weight multiplier
+SUBJECT_WEIGHT_MULTIPLIER = 1.5
 
-# Output formats
-OUTPUT_FORMATS = {
-    'csv': True,
-    'html_dashboard': True,
-    'png_charts': True,
-    'pdf_report': False,  # Optional
-}
+# Paths
+DATA_DIR = "data"
+INPUT_FILE = "sample_emails.csv"
+OUTPUT_FILE = "output_results.csv"
