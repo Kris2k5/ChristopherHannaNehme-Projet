@@ -122,11 +122,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Generated results
-results/*.png
-results/*.pdf
-results/*.html
-data/output_results.csv
+# Generated results (keep sample outputs for demo)
+# results/*.png
+# results/*.html
+# data/output_results.csv
 
 # IDE
 .vscode/
