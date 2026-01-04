@@ -1,5 +1,5 @@
 # Product Specification Document
-## Social Media Sentiment Analysis System
+## Email Urgency Detection for High-Priority Leads
 
 **Version:** 1.0  
 **Date:** January 2024  
@@ -10,16 +10,16 @@
 
 ## Executive Summary
 
-The Social Media Sentiment Analysis System is a production-ready machine learning application designed to analyze and classify public sentiment expressed in social media content. The system automatically processes text from multiple platforms (Twitter, Facebook, Instagram, Reddit) to determine whether content is positive, negative, or neutral, providing actionable insights for brand reputation management, marketing campaign assessment, and customer feedback analysis.
+The Email Urgency Detection System is a lightweight, production-ready application designed to automatically analyze and classify prospect emails based on urgency. Using rule-based keyword detection and weighted scoring, the system identifies high-priority leads that require immediate follow-up, enabling sales and business development teams to respond quickly to time-sensitive opportunities.
 
 ### Key Benefits
 
-- **Real-time Insights**: Immediate sentiment analysis of social media content
-- **Automated Monitoring**: Continuous tracking without manual review
-- **Early Warning System**: Automatic alerts for negative sentiment spikes
-- **Scalable Processing**: Handles both individual posts and large datasets
-- **Visual Reporting**: Executive-ready dashboards and visualizations
-- **Cost-Effective**: Open-source solution with minimal infrastructure requirements
+- **Automated Prioritization**: Instantly identifies emails requiring immediate attention
+- **Consistent Scoring**: Standardized urgency assessment across all communications
+- **Fast Processing**: Analyzes 50+ emails in seconds
+- **Simple Deployment**: Minimal dependencies, runs with one command
+- **Actionable Insights**: Clear urgency levels and priority rankings
+- **Cost-Effective**: No external APIs or complex ML frameworks required
 
 ---
 
@@ -27,603 +27,200 @@ The Social Media Sentiment Analysis System is a production-ready machine learnin
 
 ### 1.1 Business Challenge
 
-Organizations face several challenges in monitoring social media sentiment:
+Sales and business development teams face several critical challenges:
 
-1. **Volume**: Thousands of social media posts daily about brands/products
-2. **Speed**: Need for real-time analysis to respond quickly to trends
-3. **Accuracy**: Manual sentiment classification is subjective and error-prone
-4. **Resources**: Insufficient staff to manually review all content
-5. **Consistency**: Need for standardized sentiment measurement across platforms
+1. **Email Overload**: Receive 100+ emails daily from prospects, leads, and clients
+2. **Missed Opportunities**: Time-sensitive requests buried in inbox lead to lost deals
+3. **Inconsistent Prioritization**: Different team members assess urgency subjectively
+4. **Response Delays**: No systematic way to identify emails needing immediate response
+5. **Inefficiency**: Manual review of all emails wastes valuable selling time
 
 ### 1.2 Solution Overview
 
 Our system addresses these challenges by providing:
 
-- **Automated Analysis**: Processes text automatically using VADER algorithm
-- **Multi-Platform Support**: Analyzes content from Twitter, Facebook, Instagram, Reddit
-- **Real-Time Processing**: Immediate sentiment classification
-- **Standardized Metrics**: Consistent scoring system (-1 to 1 scale)
-- **Actionable Alerts**: Automatic notifications for critical sentiment shifts
-
-### 1.3 Objectives
-
-**Primary Objectives:**
-- Accurately classify social media sentiment (>85% accuracy)
-- Process 1000+ posts per minute
-- Generate visual reports within seconds
-- Detect negative sentiment spikes automatically
-
-**Secondary Objectives:**
-- Provide time-series trend analysis
-- Enable platform-specific comparisons
-- Support historical data analysis
-- Facilitate data export for further analysis
+- **Automated Urgency Detection**: Rule-based keyword matching identifies urgent emails
+- **Weighted Scoring**: Keywords weighted by importance (0-100 scale)
+- **Clear Classification**: Four urgency levels (Critical, High, Medium, Low)
+- **Priority Ranking**: Emails ranked by urgency score for easy triage
+- **Instant Processing**: CSV input → Analysis → CSV output in seconds
 
 ---
 
-## 2. Target Users and Use Cases
+## 2. System Architecture
 
-### 2.1 Primary Users
-
-**Marketing Teams**
-- Monitor campaign effectiveness
-- Track brand perception
-- Identify influencers and advocates
-
-**Customer Service Teams**
-- Identify unhappy customers early
-- Prioritize response to negative feedback
-- Track service quality trends
-
-**Product Managers**
-- Assess product launch reception
-- Gather user feedback
-- Identify feature requests and issues
-
-**Executives/Management**
-- High-level sentiment overview
-- Strategic decision support
-- Crisis management
-
-### 2.2 Use Cases
-
-#### Use Case 1: Product Launch Monitoring
-**Actor**: Marketing Manager  
-**Goal**: Track public sentiment during product launch  
-**Flow**:
-1. System collects social media posts mentioning product
-2. Analyzes sentiment of each post
-3. Generates real-time dashboard
-4. Alerts team if negative sentiment exceeds threshold
-5. Provides word clouds of common themes
-
-#### Use Case 2: Crisis Detection
-**Actor**: Brand Manager  
-**Goal**: Detect negative sentiment spikes early  
-**Flow**:
-1. System continuously monitors brand mentions
-2. Detects spike in negative sentiment
-3. Sends immediate alert to team
-4. Provides list of high-priority negative comments
-5. Generates summary report for management
-
-#### Use Case 3: Campaign Assessment
-**Actor**: Marketing Analyst  
-**Goal**: Measure effectiveness of marketing campaign  
-**Flow**:
-1. Upload campaign-related social media data
-2. System analyzes sentiment distribution
-3. Compares sentiment across platforms
-4. Generates time-series trend analysis
-5. Exports detailed report with visualizations
-
-#### Use Case 4: Competitive Analysis
-**Actor**: Strategy Team  
-**Goal**: Compare brand sentiment with competitors  
-**Flow**:
-1. Collect data for multiple brands
-2. Analyze sentiment for each brand
-3. Generate comparative visualizations
-4. Identify strengths and weaknesses
-5. Present findings to leadership
-
----
-
-## 3. System Architecture
-
-### 3.1 High-Level Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     USER INTERFACE LAYER                     │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │   Jupyter    │  │   Python     │  │     API      │      │
-│  │   Notebook   │  │   Scripts    │  │  (Future)    │      │
-│  └──────────────┘  └──────────────┘  └──────────────┘      │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    APPLICATION LAYER                         │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │           Sentiment Analysis Engine                  │   │
-│  │  ┌────────────┐  ┌────────────┐  ┌────────────┐    │   │
-│  │  │ Analyzer   │  │Preprocessor│  │Alert System│    │   │
-│  │  └────────────┘  └────────────┘  └────────────┘    │   │
-│  └──────────────────────────────────────────────────────┘   │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │           Visualization Engine                       │   │
-│  │  ┌────────────┐  ┌────────────┐  ┌────────────┐    │   │
-│  │  │  Charts    │  │ Dashboard  │  │ Word Cloud │    │   │
-│  │  └────────────┘  └────────────┘  └────────────┘    │   │
-│  └──────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                       DATA LAYER                             │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │   Input      │  │   Results    │  │   Alerts     │      │
-│  │   CSV        │  │   Database   │  │   Logs       │      │
-│  └──────────────┘  └──────────────┘  └──────────────┘      │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    OUTPUT LAYER                              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │ HTML Reports │  │  PNG Charts  │  │  CSV Export  │      │
-│  └──────────────┘  └──────────────┘  └──────────────┘      │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 3.2 Component Architecture
+### 2.1 Component Architecture
 
 **Core Components:**
 
-1. **Data Preprocessing Module** (`data_preprocessing.py`)
-   - Text cleaning and normalization
-   - URL/mention removal
-   - Emoji handling
-   - Special character processing
+1. **Configuration Module** (`config.py`)
+   - Urgency keyword dictionaries with weights
+   - Time-based keyword patterns
+   - Action request indicators
+   - Urgency level thresholds
 
-2. **Sentiment Analyzer** (`sentiment_analyzer.py`)
-   - VADER sentiment engine
-   - Batch processing
-   - Score calculation
-   - Classification logic
+2. **Email Analyzer** (`email_analyzer.py`)
+   - Text preprocessing and normalization
+   - Email information extraction
+   - Urgency indicator detection
+   - Keyword counting
 
-3. **Visualization Engine** (`visualization.py`)
-   - Chart generation
-   - Dashboard creation
-   - Word cloud generation
-   - Report formatting
+3. **Urgency Detector** (`urgency_detector.py`)
+   - Keyword score calculation
+   - Subject line analysis (weighted)
+   - Time constraint detection
+   - Urgency level classification
 
-4. **Alert System** (`alert_system.py`)
-   - Spike detection
-   - Threshold monitoring
-   - Report generation
-   - Priority flagging
-
-5. **Configuration Manager** (`config.py`)
-   - Settings management
-   - Threshold configuration
-   - Path management
+4. **Main Controller** (`main.py`)
+   - CSV data loading
+   - Batch email processing
+   - Statistics calculation
+   - Results display
 
 ---
 
-## 4. Technical Requirements
+## 3. Technical Approach
 
-### 4.1 System Requirements
+### 3.1 Urgency Detection Logic
 
-**Minimum Requirements:**
-- Python 3.8 or higher
-- 4GB RAM
-- 1GB free disk space
-- Internet connection (for initial NLTK data download)
+The system uses a weighted keyword matching approach:
 
-**Recommended Requirements:**
-- Python 3.10+
-- 8GB RAM
-- 5GB free disk space
-- Multi-core processor for parallel processing
+1. **Text Preprocessing**: Convert to lowercase, normalize whitespace
+2. **Keyword Detection**: Scan for urgency keywords with weights
+3. **Subject Line Analysis**: Apply 1.5x multiplier to subject keywords
+4. **Score Calculation**: Sum all keyword weights
+5. **Normalization**: Cap final score at 100
+6. **Classification**: Map score to urgency level
 
-### 4.2 Software Dependencies
+### 3.2 Keyword Categories
 
-**Core Libraries:**
-```
-pandas >= 2.0.0          # Data manipulation
-numpy >= 1.24.0          # Numerical operations
-vaderSentiment >= 3.3.2  # Sentiment analysis
-nltk >= 3.8.0            # NLP toolkit
-```
+**Critical Keywords (Weight: 20)**
+- urgent, ASAP, immediately, emergency, critical, now
 
-**Visualization:**
-```
-matplotlib >= 3.7.0      # Plotting
-seaborn >= 0.12.0        # Statistical visualization
-wordcloud >= 1.9.0       # Word clouds
-```
+**High Priority Keywords (Weight: 15)**
+- soon, quickly, time-sensitive, deadline, expires
 
-**Testing:**
-```
-pytest >= 7.4.0          # Testing framework
-pytest-cov >= 4.1.0      # Coverage reporting
-```
+**Medium Priority Keywords (Weight: 10)**
+- please, need, important, waiting, required
 
-**Optional:**
-```
-transformers >= 4.30.0   # Advanced NLP models
-torch >= 2.0.0           # Deep learning
-```
+**Time-Based Keywords (Weight: 15)**
+- today, by EOD, within 24 hours, this afternoon
 
-### 4.3 Data Requirements
-
-**Input Format:**
-- CSV file with UTF-8 encoding
-- Required column: `text` (string)
-- Optional columns: `timestamp`, `platform`, `product_mention`
-- Minimum 10 rows for meaningful analysis
-
-**Output Format:**
-- CSV with original columns plus sentiment scores
-- HTML dashboard
-- PNG visualizations
-- TXT/JSON alert reports
+**Action Request Keywords (Weight: 10)**
+- call me, need response, please respond, waiting for
 
 ---
 
-## 5. Features and Functionality
+## 4. Features and Functionality
 
-### 5.1 Core Features
+### 4.1 Core Features
 
-#### Feature 1: Sentiment Classification
-**Description**: Classifies text as Positive, Negative, or Neutral  
-**Input**: Text string  
-**Output**: Sentiment label + compound score (-1 to 1)  
-**Algorithm**: VADER (Valence Aware Dictionary and sEntiment Reasoner)  
-**Accuracy**: >85% on social media text
+1. **Keyword-Based Urgency Scoring**
+   - Detects urgency keywords
+   - Calculates weighted score (0-100)
+   - Lists flagged keywords
 
-#### Feature 2: Batch Processing
-**Description**: Processes multiple texts simultaneously  
-**Capacity**: 1000+ posts per minute  
-**Input**: DataFrame or list of texts  
-**Output**: DataFrame with sentiment scores  
+2. **Four-Level Classification**
+   - Critical (76-100): Immediate response required
+   - High (51-75): Respond today
+   - Medium (26-50): Respond within 2-3 days
+   - Low (0-25): Standard follow-up
 
-#### Feature 3: Time-Series Analysis
-**Description**: Tracks sentiment changes over time  
-**Input**: Data with timestamps  
-**Output**: Trend visualization + statistics  
+3. **Priority Ranking**
+   - Ranks all emails by urgency score
+   - Priority rank (1 = most urgent)
 
-#### Feature 4: Platform Comparison
-**Description**: Compares sentiment across social platforms  
-**Input**: Data with platform labels  
-**Output**: Comparative bar chart  
+4. **Batch Processing**
+   - Processes multiple emails simultaneously
+   - CSV input and output
 
-#### Feature 5: Alert System
-**Description**: Detects and reports negative sentiment spikes  
-**Triggers**: 
-- Consecutive negative comments
-- High percentage of negative sentiment
-- Sudden sentiment drops
-**Output**: Alert report with high-priority comments
+5. **Console Summary**
+   - Statistics by urgency level
+   - Top 5 most urgent emails
 
-### 5.2 Visualization Features
+### 4.2 Input/Output Specification
 
-1. **Sentiment Distribution Pie Chart**
-   - Shows percentage of each sentiment class
-   - Color-coded (Green=Positive, Gray=Neutral, Red=Negative)
+**Input Format (CSV):**
+- email_id, sender, subject, body, timestamp
 
-2. **Score Histogram**
-   - Distribution of compound scores
-   - Color gradient based on sentiment
-
-3. **Time-Series Line Chart**
-   - Sentiment trends over time
-   - Threshold indicators
-
-4. **Word Clouds**
-   - Separate clouds for positive/negative content
-   - Size represents word frequency
-
-5. **Platform Comparison**
-   - Stacked/grouped bar charts
-   - Percentage-based comparison
-
-6. **HTML Dashboard**
-   - All visualizations in one page
-   - Summary statistics
-   - Responsive design
-   - Interactive elements
+**Output Format (CSV):**
+- email_id, sender, subject, urgency_score, urgency_level, flagged_keywords, priority_rank, timestamp
 
 ---
 
-## 6. Data Flow Diagram
+## 5. Use Cases
 
-```
-┌─────────────────┐
-│  Raw Social     │
-│  Media Data     │
-│  (CSV/Stream)   │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────────────┐
-│  Data Preprocessing     │
-│  - Clean text           │
-│  - Remove URLs          │
-│  - Normalize            │
-└────────┬────────────────┘
-         │
-         ▼
-┌─────────────────────────┐
-│  Sentiment Analysis     │
-│  - VADER scoring        │
-│  - Classification       │
-│  - Batch processing     │
-└────────┬────────────────┘
-         │
-         ├────────────────────────────────┐
-         │                                │
-         ▼                                ▼
-┌─────────────────────────┐    ┌──────────────────┐
-│  Visualization          │    │  Alert System    │
-│  - Generate charts      │    │  - Detect spikes │
-│  - Create dashboard     │    │  - Flag priority │
-│  - Word clouds          │    │  - Generate rept │
-└────────┬────────────────┘    └────────┬─────────┘
-         │                              │
-         └──────────┬───────────────────┘
-                    │
-                    ▼
-         ┌─────────────────────┐
-         │  Output Storage     │
-         │  - Results CSV      │
-         │  - HTML Dashboard   │
-         │  - PNG Charts       │
-         │  - Alert Reports    │
-         └─────────────────────┘
-```
+**1. Sales Team Daily Triage**
+- Prioritize 100+ daily emails
+- Focus on Critical and High emails first
+- 40% faster response time
+
+**2. Contract Deadline Management**
+- Detect expiring contracts
+- Immediate response prevents missed deadlines
+- Improved contract renewal rate
+
+**3. Emergency Support Request**
+- Flag critical system issues
+- Support team notified immediately
+- Faster resolution times
+
+**4. Lead Qualification**
+- Identify hot leads ready to buy
+- Prioritize time-sensitive opportunities
+- Higher conversion rates
 
 ---
 
-## 7. Success Metrics
+## 6. Success Metrics
 
-### 7.1 Performance Metrics
+### Performance Metrics
+- Single email analysis: <1ms
+- Batch processing (55 emails): <2 seconds
+- Critical classification precision: >90%
 
-**Accuracy Metrics:**
-- Sentiment classification accuracy: >85%
-- Precision for negative sentiment: >80%
-- Recall for negative sentiment: >80%
-- F1-score: >0.82
-
-**Speed Metrics:**
-- Single text analysis: <10ms
-- Batch processing (1000 posts): <60 seconds
-- Dashboard generation: <10 seconds
-- Alert detection: <5 seconds
-
-**Reliability Metrics:**
-- System uptime: >99%
-- Error rate: <1%
-- Successful processing rate: >99%
-
-### 7.2 Business Metrics
-
-**User Adoption:**
-- Active users per week
-- Analysis runs per day
-- Reports generated per week
-
-**Value Delivered:**
-- Negative sentiment detection rate
-- Average response time to alerts
-- Number of crisis situations prevented
-- Customer satisfaction improvement
-
-### 7.3 Quality Metrics
-
-**Code Quality:**
-- Test coverage: >80%
-- Code documentation: >70%
-- PEP 8 compliance: >95%
-- Maintainability index: >70
+### Business Metrics
+- Email triage time: Reduced by 70%
+- Response time to urgent emails: Improved by 50%
+- Missed deadlines: Reduced by 80%
+- Team productivity: Increased by 30%
 
 ---
 
-## 8. Security and Privacy
+## 7. Deployment Guide
 
-### 8.1 Data Security
-
-- **No Data Storage**: System processes data without permanent storage
-- **Local Processing**: All analysis performed locally
-- **No External Calls**: No data sent to external APIs
-- **Access Control**: File system permissions for outputs
-
-### 8.2 Privacy Considerations
-
-- **Anonymization**: Option to remove user identifiers
-- **Compliance**: GDPR/CCPA ready (no PII storage)
-- **Sample Data**: All provided data is synthetic
-- **User Consent**: Assumes proper consent for analyzed data
-
----
-
-## 9. Limitations and Constraints
-
-### 9.1 Technical Limitations
-
-1. **Language**: English only (VADER optimized for English)
-2. **Context**: Cannot understand complex sarcasm
-3. **Domain**: Best for social media; may need tuning for other domains
-4. **Real-time**: Current version requires data upload (no streaming)
-
-### 9.2 Business Constraints
-
-1. **Data Collection**: Relies on external data collection methods
-2. **Platform API**: Subject to social media platform policies
-3. **Manual Review**: High-stakes decisions should include human review
-4. **Update Frequency**: VADER lexicon may need updates for new slang
-
----
-
-## 10. Future Enhancements
-
-### 10.1 Short-term (3-6 months)
-
-- [ ] **Web Interface**: Flask/Django web application
-- [ ] **API Service**: RESTful API for integration
-- [ ] **Database Integration**: PostgreSQL for data persistence
-- [ ] **Scheduled Analysis**: Cron-based automated runs
-- [ ] **Email Alerts**: Automated email notifications
-
-### 10.2 Medium-term (6-12 months)
-
-- [ ] **Advanced Models**: BERT/RoBERTa integration
-- [ ] **Multi-language**: Support for Spanish, French, German
-- [ ] **Streaming Data**: Real-time social media stream processing
-- [ ] **Aspect-Based Analysis**: Sentiment by product feature
-- [ ] **Mobile Dashboard**: iOS/Android app
-
-### 10.3 Long-term (12+ months)
-
-- [ ] **AI Predictions**: Forecast sentiment trends
-- [ ] **Recommendation Engine**: Suggested responses
-- [ ] **Social Listening Platform**: Full-featured monitoring tool
-- [ ] **Enterprise Features**: Role-based access, multi-tenancy
-- [ ] **Cloud Deployment**: AWS/Azure/GCP deployment options
-
----
-
-## 11. Deployment Guide
-
-### 11.1 Development Environment
-
+### Installation
 ```bash
-# Clone repository
 git clone https://github.com/Kris2k5/ChristopherHannaNehme-Projet.git
 cd ChristopherHannaNehme-Projet
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Download NLTK data
-python -c "import nltk; nltk.download('vader_lexicon')"
-
-# Run tests
-pytest tests/
+python main.py
 ```
 
-### 11.2 Production Environment
-
-**Option 1: Standalone Server**
-- Deploy on Linux server
-- Use systemd for service management
-- Nginx reverse proxy for web interface
-
-**Option 2: Docker Container**
-```dockerfile
-FROM python:3.10-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-CMD ["python", "main.py"]
-```
-
-**Option 3: Cloud Platform**
-- AWS Lambda for serverless
-- Google Cloud Run for containers
-- Azure Functions for event-driven
+### Configuration
+Edit `src/config.py` to customize keywords and thresholds.
 
 ---
 
-## 12. Maintenance and Support
+## 8. Future Enhancements
 
-### 12.1 Regular Maintenance
+### Short-term (1-3 months)
+- Additional language support
+- Sentiment analysis integration
+- Configurable keyword weights via UI
 
-- **Weekly**: Review alert logs
-- **Monthly**: Update dependencies
-- **Quarterly**: Review and tune thresholds
-- **Annually**: VADER lexicon review and updates
+### Medium-term (3-6 months)
+- Machine learning model
+- Real-time email integration
+- Web dashboard
 
-### 12.2 Monitoring
-
-- **Logs**: Application logs in `logs/` directory
-- **Metrics**: Processing time, error rate
-- **Alerts**: System health alerts
-- **Usage**: Track analysis volume and patterns
-
-### 12.3 Backup and Recovery
-
-- **Code**: Version controlled in Git
-- **Configuration**: Backup config files
-- **Results**: Optional archival to cloud storage
-- **Recovery**: <1 hour to restore from backup
+### Long-term (6-12 months)
+- Advanced NLP
+- Multi-language support
+- CRM integration
+- Mobile application
 
 ---
 
-## 13. Glossary
-
-**Compound Score**: VADER's overall sentiment metric (-1 to 1)  
-**VADER**: Valence Aware Dictionary and sEntiment Reasoner  
-**Sentiment Spike**: Sudden increase in negative sentiment  
-**High-Priority Comment**: Comment with compound score < -0.5  
-**Platform**: Social media service (Twitter, Facebook, etc.)  
-**Dashboard**: HTML report with visualizations and statistics  
-**Word Cloud**: Visual representation of word frequency  
-**Alert**: Automated notification of sentiment anomaly  
-
----
-
-## 14. Appendices
-
-### Appendix A: VADER Scoring Details
-
-VADER outputs four scores:
-- **pos**: Positive sentiment ratio (0-1)
-- **neu**: Neutral sentiment ratio (0-1)
-- **neg**: Negative sentiment ratio (0-1)
-- **compound**: Normalized weighted composite (-1 to 1)
-
-The compound score is used for classification:
-- **Positive**: compound >= 0.05
-- **Neutral**: -0.05 < compound < 0.05
-- **Negative**: compound <= -0.05
-
-### Appendix B: Configuration Options
-
-See `src/config.py` for all configurable parameters:
-- Sentiment thresholds
-- Alert settings
-- Visualization options
-- Preprocessing rules
-- File paths
-
-### Appendix C: API Reference
-
-Complete API documentation available in code docstrings.
-
-Key classes:
-- `SentimentAnalyzer`: Main analysis engine
-- `TextPreprocessor`: Text cleaning
-- `SentimentVisualizer`: Visualization generation
-- `SentimentAlertSystem`: Alert detection
-
----
-
-**Document Version Control:**
-- v1.0 - January 2024 - Initial release
-- Future versions will be tracked in this section
-
----
-
-**Approval:**
-- [ ] Technical Lead
-- [ ] Product Manager
-- [ ] Quality Assurance
-- [ ] Security Team
+**Document Version:** 1.0  
+**Date:** January 2024
