@@ -127,6 +127,13 @@ dmypy.json
 # results/*.html
 # data/output_results.csv
 
+# PNG charts (no longer generated)
+results/charts/
+*.png
+
+# Old backup files
+*_old.py
+
 # IDE
 .vscode/
 .idea/

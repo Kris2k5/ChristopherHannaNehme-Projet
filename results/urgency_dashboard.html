@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Urgency Detection Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -20,7 +19,7 @@
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -31,118 +30,109 @@
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 30px;
+            padding: 40px 30px;
             text-align: center;
         }
         
         header h1 {
             font-size: 2.5em;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         
-        header p {
-            font-size: 1.1em;
-            opacity: 0.95;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        .summary {
             padding: 30px;
             background: #f8f9fa;
         }
         
-        .stat-card {
+        .summary h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .summary p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        
+        .summary ul {
+            list-style: none;
+            font-size: 1.1em;
+        }
+        
+        .summary li {
+            margin: 10px 0;
+        }
+        
+        .distribution {
+            padding: 30px;
             background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
         }
         
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        .distribution h2 {
+            margin-bottom: 20px;
+            color: #333;
         }
         
-        .stat-card h3 {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .stat-card .value {
-            font-size: 2.5em;
+        .bar {
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            color: white;
             font-weight: bold;
-            margin-bottom: 5px;
+            min-width: 150px;
+            transition: all 0.3s ease;
         }
         
-        .stat-card.critical .value { color: #ff4444; }
-        .stat-card.high .value { color: #ff9944; }
-        .stat-card.medium .value { color: #ffdd44; }
-        .stat-card.low .value { color: #44ff44; }
+        .bar:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
         
-        .charts-section {
+        .bar.critical {
+            background: #ff4444;
+        }
+        
+        .bar.high {
+            background: #ff9944;
+        }
+        
+        .bar.medium {
+            background: #ffdd44;
+            color: #333;
+        }
+        
+        .bar.low {
+            background: #44ff44;
+            color: #333;
+        }
+        
+        .emails-table {
             padding: 30px;
+            background: #f8f9fa;
         }
         
-        .chart-container {
-            background: white;
-            padding: 25px;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .chart-container h2 {
+        .emails-table h2 {
             margin-bottom: 20px;
             color: #333;
-            font-size: 1.5em;
-        }
-        
-        .chart-wrapper {
-            position: relative;
-            height: 400px;
-        }
-        
-        .table-container {
-            padding: 30px;
-            background: white;
-        }
-        
-        .table-container h2 {
-            margin-bottom: 20px;
-            color: #333;
-            font-size: 1.5em;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.95em;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
         }
         
         thead {
             background: #667eea;
             color: white;
-            position: sticky;
-            top: 0;
         }
         
         th {
             padding: 15px;
             text-align: left;
             font-weight: 600;
-            cursor: pointer;
-            user-select: none;
-        }
-        
-        th:hover {
-            background: #5568d3;
         }
         
         td {
@@ -154,10 +144,21 @@
             background: #f8f9fa;
         }
         
-        .level-critical { background-color: #ff444422; }
-        .level-high { background-color: #ff994422; }
-        .level-medium { background-color: #ffdd4422; }
-        .level-low { background-color: #44ff4422; }
+        .level-critical {
+            background-color: #ffcccc;
+        }
+        
+        .level-high {
+            background-color: #ffe0cc;
+        }
+        
+        .level-medium {
+            background-color: #ffffcc;
+        }
+        
+        .level-low {
+            background-color: #ccffcc;
+        }
         
         .badge {
             display: inline-block;
@@ -168,552 +169,313 @@
             color: white;
         }
         
-        .badge-critical { background: #ff4444; }
-        .badge-high { background: #ff9944; }
-        .badge-medium { background: #ffdd44; }
-        .badge-low { background: #44ff44; }
-        
-        .info-section {
-            padding: 30px;
-            background: #f8f9fa;
+        .badge-critical {
+            background: #ff4444;
         }
         
-        .info-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .badge-high {
+            background: #ff9944;
         }
         
-        .info-card h3 {
-            margin-bottom: 10px;
-            color: #667eea;
+        .badge-medium {
+            background: #ffdd44;
+            color: #333;
         }
         
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9em;
+        .badge-low {
+            background: #44ff44;
+            color: #333;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Simple Header -->
         <header>
-            <h1>📊 Email Urgency Detection Dashboard</h1>
-            <p>Analysis completed on January 04, 2026 at 01:00 PM</p>
-            <p>Total Emails Analyzed: <strong>55</strong></p>
+            <h1>Email Urgency Detection Dashboard</h1>
         </header>
         
-        <div class="stats-grid">
-            <div class="stat-card critical">
-                <h3>🔴 Critical</h3>
-                <div class="value">13</div>
-                <p>23.6% of total</p>
-            </div>
-            <div class="stat-card high">
-                <h3>🟠 High</h3>
-                <div class="value">10</div>
-                <p>18.2% of total</p>
-            </div>
-            <div class="stat-card medium">
-                <h3>🟡 Medium</h3>
-                <div class="value">6</div>
-                <p>10.9% of total</p>
-            </div>
-            <div class="stat-card low">
-                <h3>🟢 Low</h3>
-                <div class="value">26</div>
-                <p>47.3% of total</p>
-            </div>
+        <!-- Summary Statistics -->
+        <div class="summary">
+            <h2>Analysis Summary</h2>
+            <p><strong>Total Emails Analyzed:</strong> 55</p>
+            <ul>
+                <li>🔴 <strong>Critical:</strong> 13 emails (23.6%)</li>
+                <li>🟠 <strong>High:</strong> 10 emails (18.2%)</li>
+                <li>🟡 <strong>Medium:</strong> 6 emails (10.9%)</li>
+                <li>🟢 <strong>Low:</strong> 26 emails (47.3%)</li>
+            </ul>
         </div>
         
-        <div class="charts-section">
-            <div class="chart-container">
-                <h2>📈 Urgency Distribution</h2>
-                <div class="chart-wrapper">
-                    <canvas id="distributionChart"></canvas>
-                </div>
-            </div>
-            
-            <div class="chart-container">
-                <h2>📊 Urgency Scores</h2>
-                <div class="chart-wrapper">
-                    <canvas id="scoresChart"></canvas>
-                </div>
-            </div>
-            
-            <div class="chart-container">
-                <h2>📅 Timeline Trends</h2>
-                <div class="chart-wrapper">
-                    <canvas id="timelineChart"></canvas>
-                </div>
-            </div>
+        <!-- Simple Distribution Visualization -->
+        <div class="distribution">
+            <h2>📊 Urgency Distribution</h2>
+            <div class="bar critical" style="width: 23.6%">Critical: 13 (23.6%)</div>
+            <div class="bar high" style="width: 18.2%">High: 10 (18.2%)</div>
+            <div class="bar medium" style="width: 10.9%">Medium: 6 (10.9%)</div>
+            <div class="bar low" style="width: 47.3%">Low: 26 (47.3%)</div>
         </div>
         
-        <div class="table-container">
-            <h2>📋 Top 20 Most Urgent Emails</h2>
+        <!-- Top Priority Emails Table -->
+        <div class="emails-table">
+            <h2>📋 Top Priority Emails</h2>
             <div style="overflow-x: auto; max-height: 600px; overflow-y: auto;">
-                <table id="emailTable">
+                <table>
                     <thead>
                         <tr>
-                            <th onclick="sortTable(0)">Rank</th>
-                            <th onclick="sortTable(1)">Score</th>
-                            <th onclick="sortTable(2)">Level</th>
-                            <th onclick="sortTable(3)">Sender</th>
-                            <th onclick="sortTable(4)">Subject</th>
-                            <th onclick="sortTable(5)">Keywords</th>
-                            <th onclick="sortTable(6)">Timestamp</th>
+                            <th>Rank</th>
+                            <th>Score</th>
+                            <th>Level</th>
+                            <th>Sender</th>
+                            <th>Subject</th>
+                            <th>Date</th>
                         </tr>
                     </thead>
                     <tbody>
-                        
                         <tr class="level-critical">
                             <td>1</td>
                             <td><strong>100</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>john.smith@company.com</td>
                             <td><strong>URGENT: Contract expires today - need signature ASAP</strong></td>
-                            <td>need, expire, please respond, by 5pm, today, expir...</td>
                             <td>2024-01-15 09:30:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>2</td>
                             <td><strong>100</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>kevin.hall@prospect.com</td>
                             <td><strong>URGENT NEED - Proposal required by noon</strong></td>
-                            <td>need, by noon, please respond, today, urgent need,...</td>
                             <td>2024-01-17 07:00:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>3</td>
                             <td><strong>99</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>sarah.jones@client.com</td>
                             <td><strong>Emergency: System down call immediately</strong></td>
-                            <td>need, please, call me, urgent, immediately, emerge...</td>
                             <td>2024-01-15 10:15:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>4</td>
                             <td><strong>97</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>james.lopez@enterprise.com</td>
                             <td><strong>URGENT - Decision needed by end of day</strong></td>
-                            <td>need, soon, today, urgent, end of day, call me, ne...</td>
                             <td>2024-01-16 08:00:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>5</td>
                             <td><strong>97</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>jeremy.edwards@client.com</td>
                             <td><strong>Critical deadline - response needed this morning</strong></td>
-                            <td>response, need, deadline, critical, end of day, th...</td>
                             <td>2024-01-18 08:00:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>6</td>
                             <td><strong>96</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>jeff.lopez@firm.com</td>
                             <td><strong>Please call me today about urgent matter</strong></td>
-                            <td>need, today, please, asap, urgent, call me, call m...</td>
                             <td>2024-01-17 09:00:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>7</td>
                             <td><strong>89</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>austin.stewart@enterprise.com</td>
                             <td><strong>Time-sensitive legal review required immediately</strong></td>
-                            <td>time-sensitive, today, required, deadline, immedia...</td>
                             <td>2024-01-18 09:00:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>8</td>
                             <td><strong>86</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>mike.wilson@prospect.com</td>
                             <td><strong>Need proposal by 5pm deadline - please respond</strong></td>
-                            <td>time-sensitive, soon, today, please, deadline, nee...</td>
                             <td>2024-01-15 11:00:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>9</td>
                             <td><strong>83</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>daniel.perez@firm.com</td>
                             <td><strong>URGENT: Server maintenance required now</strong></td>
-                            <td>critical, need, urgent, now, required (subject), u...</td>
                             <td>2024-01-16 13:00:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>10</td>
                             <td><strong>82</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>patricia.gonzalez@startup.com</td>
                             <td><strong>Need response today - waiting for confirmation</strong></td>
-                            <td>response, need, confirm, today, waiting, waiting f...</td>
                             <td>2024-01-16 08:30:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>11</td>
                             <td><strong>81</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>david.miller@startup.com</td>
                             <td><strong>ASAP: Client waiting for quote very urgent</strong></td>
-                            <td>need, today, waiting, asap, waiting for, waiting f...</td>
                             <td>2024-01-15 13:45:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>12</td>
                             <td><strong>80</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>karen.white@company.com</td>
                             <td><strong>Need to reschedule today's meeting ASAP</strong></td>
-                            <td>need, today, asap, urgent, need (subject), today (...</td>
                             <td>2024-01-16 13:30:00</td>
                         </tr>
-
                         <tr class="level-critical">
                             <td>13</td>
                             <td><strong>80</strong></td>
                             <td><span class="badge badge-critical">Critical</span></td>
                             <td>nicholas.nelson@corporate.com</td>
                             <td><strong>IMMEDIATELY NEED APPROVAL - Contract signing today</strong></td>
-                            <td>critical, need, immediately, today, need (subject)...</td>
                             <td>2024-01-17 12:00:00</td>
                         </tr>
-
                         <tr class="level-high">
                             <td>14</td>
                             <td><strong>74</strong></td>
                             <td><span class="badge badge-high">High</span></td>
                             <td>sara.carter@firm.com</td>
                             <td><strong>Emergency budget revision by 5 pm</strong></td>
-                            <td>by 5 pm, need, today, emergency, by 5 pm (subject)...</td>
                             <td>2024-01-17 12:30:00</td>
                         </tr>
-
                         <tr class="level-high">
                             <td>15</td>
                             <td><strong>69</strong></td>
                             <td><span class="badge badge-high">High</span></td>
                             <td>jason.mitchell@company.com</td>
                             <td><strong>Urgent: Waiting for your response to proceed</strong></td>
-                            <td>response, waiting, waiting for, urgent, response (...</td>
                             <td>2024-01-17 13:00:00</td>
                         </tr>
-
                         <tr class="level-high">
                             <td>16</td>
                             <td><strong>68</strong></td>
                             <td><span class="badge badge-high">High</span></td>
                             <td>carol.allen@enterprise.com</td>
                             <td><strong>Critical security update needed now</strong></td>
-                            <td>critical, need, emergency, critical (subject), nee...</td>
                             <td>2024-01-17 07:30:00</td>
                         </tr>
-
                         <tr class="level-high">
                             <td>17</td>
                             <td><strong>64</strong></td>
                             <td><span class="badge badge-high">High</span></td>
                             <td>amanda.wright@corporate.com</td>
                             <td><strong>Quickly need confirmation on delivery</strong></td>
-                            <td>need, waiting, confirm, quickly, need (subject), c...</td>
                             <td>2024-01-17 08:30:00</td>
                         </tr>
-
                         <tr class="level-high">
                             <td>18</td>
                             <td><strong>62</strong></td>
                             <td><span class="badge badge-high">High</span></td>
                             <td>lisa.brown@enterprise.com</td>
                             <td><strong>Time-sensitive: Budget approval needed within 24 hours</strong></td>
-                            <td>within 24 hours, need, time-sensitive, within 24 h...</td>
                             <td>2024-01-15 12:20:00</td>
                         </tr>
-
                         <tr class="level-high">
                             <td>19</td>
                             <td><strong>62</strong></td>
                             <td><span class="badge badge-high">High</span></td>
                             <td>linda.anderson@firm.com</td>
                             <td><strong>Critical: Meeting moved to this afternoon</strong></td>
-                            <td>critical, need, this afternoon, critical (subject)...</td>
                             <td>2024-01-16 09:30:00</td>
                         </tr>
-
                         <tr class="level-high">
                             <td>20</td>
                             <td><strong>61</strong></td>
                             <td><span class="badge badge-high">High</span></td>
                             <td>melissa.collins@prospect.com</td>
                             <td><strong>ASAP - Client ready to sign needs final pricing</strong></td>
-                            <td>need, asap, now, need (subject), asap (subject)</td>
                             <td>2024-01-18 08:30:00</td>
+                        </tr>
+                        <tr class="level-high">
+                            <td>21</td>
+                            <td><strong>60</strong></td>
+                            <td><span class="badge badge-high">High</span></td>
+                            <td>matthew.harris@client.com</td>
+                            <td><strong>Deadline approaching - need final documents</strong></td>
+                            <td>2024-01-16 14:00:00</td>
+                        </tr>
+                        <tr class="level-high">
+                            <td>22</td>
+                            <td><strong>60</strong></td>
+                            <td><span class="badge badge-high">High</span></td>
+                            <td>donald.clark@enterprise.com</td>
+                            <td><strong>Important: Contract renewal discussion needed</strong></td>
+                            <td>2024-01-16 15:00:00</td>
+                        </tr>
+                        <tr class="level-high">
+                            <td>23</td>
+                            <td><strong>54</strong></td>
+                            <td><span class="badge badge-high">High</span></td>
+                            <td>richard.wilson@corporate.com</td>
+                            <td><strong>Immediately need contract revisions</strong></td>
+                            <td>2024-01-16 09:00:00</td>
+                        </tr>
+                        <tr class="level-medium">
+                            <td>24</td>
+                            <td><strong>40</strong></td>
+                            <td><span class="badge badge-medium">Medium</span></td>
+                            <td>heather.perez@client.com</td>
+                            <td><strong>Soon need decision on vendor selection</strong></td>
+                            <td>2024-01-17 13:30:00</td>
+                        </tr>
+                        <tr class="level-medium">
+                            <td>25</td>
+                            <td><strong>40</strong></td>
+                            <td><span class="badge badge-medium">Medium</span></td>
+                            <td>adam.roberts@prospect.com</td>
+                            <td><strong>Important meeting tomorrow - need materials</strong></td>
+                            <td>2024-01-17 14:00:00</td>
+                        </tr>
+                        <tr class="level-medium">
+                            <td>26</td>
+                            <td><strong>32</strong></td>
+                            <td><span class="badge badge-medium">Medium</span></td>
+                            <td>betty.sanchez@prospect.com</td>
+                            <td><strong>Time constraint on project approval</strong></td>
+                            <td>2024-01-16 14:30:00</td>
+                        </tr>
+                        <tr class="level-medium">
+                            <td>27</td>
+                            <td><strong>32</strong></td>
+                            <td><span class="badge badge-medium">Medium</span></td>
+                            <td>brian.king@startup.com</td>
+                            <td><strong>Must have answer within hours</strong></td>
+                            <td>2024-01-17 08:00:00</td>
+                        </tr>
+                        <tr class="level-medium">
+                            <td>28</td>
+                            <td><strong>31</strong></td>
+                            <td><span class="badge badge-medium">Medium</span></td>
+                            <td>robert.garcia@firm.com</td>
+                            <td><strong>Following up on our conversation</strong></td>
+                            <td>2024-01-15 14:30:00</td>
+                        </tr>
+                        <tr class="level-medium">
+                            <td>29</td>
+                            <td><strong>31</strong></td>
+                            <td><span class="badge badge-medium">Medium</span></td>
+                            <td>ruth.baker@startup.com</td>
+                            <td><strong>Monthly report</strong></td>
+                            <td>2024-01-17 11:30:00</td>
+                        </tr>
+                        <tr class="level-low">
+                            <td>30</td>
+                            <td><strong>24</strong></td>
+                            <td><span class="badge badge-low">Low</span></td>
+                            <td>charles.thomas@company.com</td>
+                            <td><strong>Quick approval needed</strong></td>
+                            <td>2024-01-16 10:00:00</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
-        <div class="info-section">
-            <div class="info-card">
-                <h3>📊 Summary Statistics</h3>
-                <p><strong>Average Urgency Score:</strong> 39.0</p>
-                <p><strong>Median Urgency Score:</strong> 31.0</p>
-            </div>
-            
-            <div class="info-card">
-                <h3>🏆 Highest Urgency Email</h3>
-                <p><strong>Subject:</strong> URGENT: Contract expires today - need signature ASAP</p>
-                <p><strong>From:</strong> john.smith@company.com</p>
-                <p><strong>Score:</strong> 100</p>
-            </div>
-            
-            <div class="info-card">
-                <h3>🔑 Most Common Urgency Keywords</h3>
-                <ul>
-                    <li><strong>need</strong>: 24 occurrences</li>
-<li><strong>need (subject)</strong>: 18 occurrences</li>
-<li><strong>today</strong>: 11 occurrences</li>
-<li><strong>please</strong>: 11 occurrences</li>
-<li><strong>urgent (subject)</strong>: 7 occurrences</li>
-                </ul>
-            </div>
-        </div>
-        
-        <footer>
-            <p>Email Urgency Detection System v1.0 | Generated with ❤️ by Christopher Hanna Nehme</p>
-        </footer>
     </div>
-    
-    <script>
-        // Distribution Pie Chart
-        const distCtx = document.getElementById('distributionChart').getContext('2d');
-        new Chart(distCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Critical', 'High', 'Medium', 'Low'],
-                datasets: [{
-                    data: [13, 10, 6, 26],
-                    backgroundColor: ['#ff4444', '#ff9944', '#ffdd44', '#44ff44'],
-                    borderWidth: 2,
-                    borderColor: '#fff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            font: { size: 14 },
-                            padding: 15
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.label || '';
-                                let value = context.parsed || 0;
-                                let total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                let percentage = ((value / total) * 100).toFixed(1);
-                                return label + ': ' + value + ' emails (' + percentage + '%)';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-        
-        // Scores Bar Chart
-        const scoresCtx = document.getElementById('scoresChart').getContext('2d');
-        new Chart(scoresCtx, {
-            type: 'bar',
-            data: {
-                labels: ['1', '31', '2', '11', '51', '35', '53', '3', '21', '12', '5', '22', '41', '42', '43', '32', '34', '4', '14', '52', '23', '25', '13', '44', '45', '24', '33', '7', '40', '15', '17', '37', '49', '9', '19', '6', '10', '18', '36', '8', '16', '20', '26', '27', '28', '29', '30', '38', '39', '46', '47', '48', '50', '54', '55'],
-                datasets: [{
-                    label: 'Urgency Score',
-                    data: [100, 100, 99, 97, 97, 96, 89, 86, 83, 82, 81, 80, 80, 74, 69, 68, 64, 62, 62, 61, 60, 60, 54, 40, 40, 32, 32, 31, 31, 24, 23, 16, 15, 12, 12, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    backgroundColor: ['#ff4444', '#ff4444', '#ff4444', '#ff4444', '#ff4444', '#ff4444', '#ff4444', '#ff4444', '#ff4444', '#ff4444', '#ff4444', '#ff4444', '#ff4444', '#ff9944', '#ff9944', '#ff9944', '#ff9944', '#ff9944', '#ff9944', '#ff9944', '#ff9944', '#ff9944', '#ff9944', '#ffdd44', '#ffdd44', '#ffdd44', '#ffdd44', '#ffdd44', '#ffdd44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44', '#44ff44'],
-                    borderColor: '#333',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            title: function(context) {
-                                return 'Email ID: ' + context[0].label;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 105,
-                        grid: { color: '#eee' },
-                        title: {
-                            display: true,
-                            text: 'Urgency Score',
-                            font: { size: 14, weight: 'bold' }
-                        }
-                    },
-                    x: {
-                        grid: { display: false },
-                        title: {
-                            display: true,
-                            text: 'Email ID (sorted by priority)',
-                            font: { size: 14, weight: 'bold' }
-                        }
-                    }
-                }
-            }
-        });
-        
-        // Timeline Stacked Bar Chart
-        const timelineCtx = document.getElementById('timelineChart').getContext('2d');
-        new Chart(timelineCtx, {
-            type: 'bar',
-            data: {
-                labels: ['2024-01-15', '2024-01-16', '2024-01-17', '2024-01-18'],
-                datasets: [
-                    {
-                        label: 'Critical',
-                        data: [4, 4, 3, 2],
-                        backgroundColor: '#ff4444',
-                        borderColor: '#333',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'High',
-                        data: [1, 4, 4, 1],
-                        backgroundColor: '#ff9944',
-                        borderColor: '#333',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Medium',
-                        data: [1, 1, 4, 0],
-                        backgroundColor: '#ffdd44',
-                        borderColor: '#333',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Low',
-                        data: [4, 11, 9, 2],
-                        backgroundColor: '#44ff44',
-                        borderColor: '#333',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            font: { size: 14 },
-                            padding: 15
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        stacked: true,
-                        beginAtZero: true,
-                        grid: { color: '#eee' },
-                        title: {
-                            display: true,
-                            text: 'Number of Emails',
-                            font: { size: 14, weight: 'bold' }
-                        }
-                    },
-                    x: {
-                        stacked: true,
-                        grid: { display: false },
-                        title: {
-                            display: true,
-                            text: 'Date',
-                            font: { size: 14, weight: 'bold' }
-                        }
-                    }
-                }
-            }
-        });
-        
-        // Table sorting function
-        function sortTable(n) {
-            const table = document.getElementById("emailTable");
-            let switching = true;
-            let dir = "asc";
-            let switchcount = 0;
-            
-            while (switching) {
-                switching = false;
-                const rows = table.rows;
-                
-                for (let i = 1; i < (rows.length - 1); i++) {
-                    let shouldSwitch = false;
-                    const x = rows[i].getElementsByTagName("TD")[n];
-                    const y = rows[i + 1].getElementsByTagName("TD")[n];
-                    
-                    let xContent = x.textContent.toLowerCase();
-                    let yContent = y.textContent.toLowerCase();
-                    
-                    // Try to parse as numbers for numeric columns
-                    const xNum = parseFloat(xContent);
-                    const yNum = parseFloat(yContent);
-                    
-                    if (!isNaN(xNum) && !isNaN(yNum)) {
-                        if (dir === "asc" && xNum > yNum) shouldSwitch = true;
-                        if (dir === "desc" && xNum < yNum) shouldSwitch = true;
-                    } else {
-                        if (dir === "asc" && xContent > yContent) shouldSwitch = true;
-                        if (dir === "desc" && xContent < yContent) shouldSwitch = true;
-                    }
-                    
-                    if (shouldSwitch) {
-                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                        switching = true;
-                        switchcount++;
-                        break;
-                    }
-                }
-                
-                if (switchcount === 0 && dir === "asc") {
-                    dir = "desc";
-                    switching = true;
-                }
-            }
-        }
-    </script>
 </body>
 </html>
