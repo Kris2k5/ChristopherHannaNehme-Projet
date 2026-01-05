@@ -1,6 +1,6 @@
-# 🎯 Email Urgency Detection System v1.0
+# 🎯 Email Urgency Detection System
 
-A production-ready email urgency detection system with advanced visualization features. Automatically analyzes email urgency, generates interactive dashboards, and creates high-quality charts for data-driven decision making.
+A lightweight email urgency detection system with clean HTML visualization. Automatically analyzes email urgency and generates an interactive dashboard for data-driven decision making.
 
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 ![Dependencies](https://img.shields.io/badge/dependencies-minimal-green.svg)
@@ -10,12 +10,11 @@ A production-ready email urgency detection system with advanced visualization fe
 
 This system uses rule-based keyword detection to automatically analyze email urgency and prioritize follow-up actions. It processes emails to identify time-sensitive requests, urgent business needs, and high-priority leads that require immediate attention.
 
-**New in v1.0:**
-- 📊 Interactive HTML Dashboard
-- 📈 High-quality PNG Charts (300 DPI)
-- 🎯 Unique Priority Ranking (1-55)
+**Key Features:**
+- 📊 Clean HTML Dashboard with CSS visualizations
+- 🎯 Unique Priority Ranking
 - 📉 Realistic Score Distribution
-- 🔍 Enhanced Error Handling
+- ⚡ Fast execution (< 5 seconds)
 
 ## ✨ Key Features
 
@@ -25,23 +24,18 @@ This system uses rule-based keyword detection to automatically analyze email urg
 - Body content analysis (max 70 points)
 - Subject line bonus scoring (max 30 points)
 
-✅ **Interactive Visualizations**
-- HTML dashboard with Chart.js
-- Distribution pie chart
-- Urgency scores bar chart
-- Timeline trends chart
-- Color-coded email table (top 20 most urgent)
-
-✅ **High-Quality PNG Charts**
-- 300 DPI resolution for presentations
-- Professional styling with matplotlib
-- Three comprehensive charts
+✅ **Clean HTML Dashboard**
+- Pure HTML/CSS visualization (no external JavaScript libraries)
+- Simple colored progress bars for distribution
+- Color-coded email table (top 30 most urgent)
+- Responsive design
+- Lightweight and fast to generate
 
 ✅ **Production-Ready**
-- Comprehensive error handling
+- Minimal dependencies (pandas, openpyxl only)
 - Auto-creates output directories
-- Clear error messages with solutions
 - Works on Windows, Mac, and Linux
+- Fast execution (< 5 seconds)
 
 ## 🚀 Quick Start
 
@@ -61,21 +55,15 @@ python main.py
 
 ## 📊 Output Files
 
-The system generates 5 output files:
+The system generates 2 output files:
 
 1. **CSV Results** (`data/output_results.csv`) - Complete analysis with rankings
-2. **HTML Dashboard** (`results/urgency_dashboard.html`) - Interactive visualization
-3. **Distribution Chart** (`results/charts/urgency_distribution.png`) - Pie chart
-4. **Scores Chart** (`results/charts/urgency_scores.png`) - Bar chart with thresholds
-5. **Timeline Chart** (`results/charts/urgency_timeline.png`) - Trends over time
+2. **HTML Dashboard** (`results/urgency_dashboard.html`) - Clean, simple visualization
 
-## 📸 Screenshots
+## 📸 Dashboard Preview
 
-### Interactive Dashboard
-![Dashboard](https://github.com/user-attachments/assets/0f6bb213-90ec-4650-b57f-bb6f349e820f)
-
-### Distribution Chart
-![Distribution](https://github.com/user-attachments/assets/7f41d993-920c-496d-8408-98c305cdaf5f)
+### Clean HTML Dashboard
+The dashboard provides a simple, fast visualization of email urgency distribution with color-coded priority emails.
 
 ## 🔍 How It Works
 
