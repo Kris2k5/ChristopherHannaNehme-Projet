@@ -1,36 +1,36 @@
 email_id,sender,subject,urgency_score,urgency_level,flagged_keywords,priority_rank,timestamp
-1,john.smith@company.com,URGENT: Contract expires today - need signature ASAP,100,Critical,"need, critical, respond asap, expires, by 5pm, please, expire, please respond, asap, today, immediately, need (subject), expires (subject), expire (subject), asap (subject), today (subject), urgent (subject)",1,2024-01-15 09:30:00
-31,kevin.hall@prospect.com,URGENT NEED - Proposal required by noon,100,Critical,"urgent need, need, by noon, urgent, please respond, today, immediately, please, urgent need (subject), by noon (subject), need (subject), required (subject), urgent (subject)",2,2024-01-17 07:00:00
-2,sarah.jones@client.com,Emergency: System down call immediately,99,Critical,"need, call me, urgent, emergency, immediately, please, emergency (subject), immediately (subject)",3,2024-01-15 10:15:00
-11,james.lopez@enterprise.com,URGENT - Decision needed by end of day,97,Critical,"need, soon, call me, end of day, today, urgent, need (subject), urgent (subject), end of day (subject)",4,2024-01-16 08:00:00
-51,jeremy.edwards@client.com,Critical deadline - response needed this morning,97,Critical,"need, critical, this morning, end of day, response, deadline, need (subject), critical (subject), this morning (subject), response (subject), deadline (subject)",5,2024-01-18 08:00:00
-35,jeff.lopez@firm.com,Please call me today about urgent matter,96,Critical,"need, call me, urgent, asap, today, please, please (subject), today (subject), call me (subject), urgent (subject)",6,2024-01-17 09:00:00
-53,austin.stewart@enterprise.com,Time-sensitive legal review required immediately,89,Critical,"required, time-sensitive, today, immediately, deadline, time-sensitive (subject), required (subject), immediately (subject)",7,2024-01-18 09:00:00
-3,mike.wilson@prospect.com,Need proposal by 5pm deadline - please respond,86,Critical,"soon, time-sensitive, today, deadline, please, need (subject), by 5pm (subject), please respond (subject), deadline (subject), please (subject)",8,2024-01-15 11:00:00
-21,daniel.perez@firm.com,URGENT: Server maintenance required now,83,Critical,"need, critical, urgent, now, required (subject), urgent (subject), now (subject)",9,2024-01-16 13:00:00
-12,patricia.gonzalez@startup.com,Need response today - waiting for confirmation,82,Critical,"need, confirm, waiting, today, response, waiting for, need (subject), confirm (subject), waiting for (subject), waiting (subject), response (subject), today (subject), need response (subject)",10,2024-01-16 08:30:00
-5,david.miller@startup.com,ASAP: Client waiting for quote very urgent,81,Critical,"need, waiting, today, asap, waiting for, asap (subject), waiting (subject), waiting for (subject), urgent (subject)",11,2024-01-15 13:45:00
-22,karen.white@company.com,Need to reschedule today's meeting ASAP,80,Critical,"need, asap, today, urgent, need (subject), asap (subject), today (subject)",12,2024-01-16 13:30:00
-41,nicholas.nelson@corporate.com,IMMEDIATELY NEED APPROVAL - Contract signing today,80,Critical,"need, today, critical, immediately, need (subject), today (subject), immediately (subject)",13,2024-01-17 12:00:00
-42,sara.carter@firm.com,Emergency budget revision by 5 pm,74,High,"need, by 5 pm, emergency, today, by 5 pm (subject), emergency (subject)",14,2024-01-17 12:30:00
-43,jason.mitchell@company.com,Urgent: Waiting for your response to proceed,69,High,"response, waiting, waiting for, urgent, response (subject), waiting (subject), waiting for (subject), urgent (subject)",15,2024-01-17 13:00:00
-32,carol.allen@enterprise.com,Critical security update needed now,68,High,"need, emergency, critical, need (subject), critical (subject), now (subject)",16,2024-01-17 07:30:00
-34,amanda.wright@corporate.com,Quickly need confirmation on delivery,64,High,"need, confirm, quickly, waiting, need (subject), confirm (subject), quickly (subject)",17,2024-01-17 08:30:00
-4,lisa.brown@enterprise.com,Time-sensitive: Budget approval needed within 24 hours,62,High,"time-sensitive, within 24 hours, need, time-sensitive (subject), within 24 hours (subject), approval needed (subject), need (subject)",18,2024-01-15 12:20:00
-14,linda.anderson@firm.com,Critical: Meeting moved to this afternoon,62,High,"need, critical, this afternoon, critical (subject), this afternoon (subject)",19,2024-01-16 09:30:00
-52,melissa.collins@prospect.com,ASAP - Client ready to sign needs final pricing,61,High,"need, asap, now, need (subject), asap (subject)",20,2024-01-18 08:30:00
-23,matthew.harris@client.com,Deadline approaching - need final documents,60,High,"need, please, quickly, deadline, need (subject), deadline (subject)",21,2024-01-16 14:00:00
-25,donald.clark@enterprise.com,Important: Contract renewal discussion needed,60,High,"expires, soon, important, expire, need (subject), important (subject)",22,2024-01-16 15:00:00
-13,richard.wilson@corporate.com,Immediately need contract revisions,54,High,"need, waiting, immediately, need (subject), immediately (subject)",23,2024-01-16 09:00:00
-44,heather.perez@client.com,Soon need decision on vendor selection,40,Medium,"need, soon, need (subject), soon (subject)",24,2024-01-17 13:30:00
-45,adam.roberts@prospect.com,Important meeting tomorrow - need materials,40,Medium,"need, important, please, need (subject), important (subject)",25,2024-01-17 14:00:00
+1,john.smith@company.com,URGENT: Contract expires today - need signature ASAP,100,Critical,"please, respond asap, expire, critical, immediately, please respond, asap, by 5pm, expires, need, today, expire (subject), urgent (subject), asap (subject), expires (subject), need (subject), today (subject)",1,2024-01-15 09:30:00
+31,kevin.hall@prospect.com,URGENT NEED - Proposal required by noon,100,Critical,"urgent need, please, urgent, immediately, please respond, need, by noon, today, urgent need (subject), required (subject), urgent (subject), need (subject), by noon (subject)",2,2024-01-17 07:00:00
+2,sarah.jones@client.com,Emergency: System down call immediately,99,Critical,"please, urgent, immediately, emergency, call me, need, immediately (subject), emergency (subject)",3,2024-01-15 10:15:00
+11,james.lopez@enterprise.com,URGENT - Decision needed by end of day,97,Critical,"soon, urgent, end of day, call me, need, today, need (subject), end of day (subject), urgent (subject)",4,2024-01-16 08:00:00
+51,jeremy.edwards@client.com,Critical deadline - response needed this morning,97,Critical,"this morning, critical, end of day, need, deadline, response, this morning (subject), critical (subject), need (subject), deadline (subject), response (subject)",5,2024-01-18 08:00:00
+35,jeff.lopez@firm.com,Please call me today about urgent matter,96,Critical,"please, urgent, asap, call me, need, today, please (subject), today (subject), call me (subject), urgent (subject)",6,2024-01-17 09:00:00
+53,austin.stewart@enterprise.com,Time-sensitive legal review required immediately,89,Critical,"required, immediately, time-sensitive, deadline, today, immediately (subject), required (subject), time-sensitive (subject)",7,2024-01-18 09:00:00
+3,mike.wilson@prospect.com,Need proposal by 5pm deadline - please respond,86,Critical,"soon, please, time-sensitive, deadline, today, please (subject), please respond (subject), by 5pm (subject), need (subject), deadline (subject)",8,2024-01-15 11:00:00
+21,daniel.perez@firm.com,URGENT: Server maintenance required now,83,Critical,"now, need, critical, urgent, required (subject), now (subject), urgent (subject)",9,2024-01-16 13:00:00
+12,patricia.gonzalez@startup.com,Need response today - waiting for confirmation,82,Critical,"waiting, confirm, waiting for, need, response, today, waiting (subject), confirm (subject), need response (subject), waiting for (subject), need (subject), response (subject), today (subject)",10,2024-01-16 08:30:00
+5,david.miller@startup.com,ASAP: Client waiting for quote very urgent,81,Critical,"waiting, asap, waiting for, need, today, waiting (subject), waiting for (subject), asap (subject), urgent (subject)",11,2024-01-15 13:45:00
+22,karen.white@company.com,Need to reschedule today's meeting ASAP,80,Critical,"today, need, asap, urgent, today (subject), need (subject), asap (subject)",12,2024-01-16 13:30:00
+41,nicholas.nelson@corporate.com,IMMEDIATELY NEED APPROVAL - Contract signing today,80,Critical,"immediately, today, need, critical, immediately (subject), need (subject), today (subject)",13,2024-01-17 12:00:00
+42,sara.carter@firm.com,Emergency budget revision by 5 pm,74,High,"emergency, need, by 5 pm, today, emergency (subject), by 5 pm (subject)",14,2024-01-17 12:30:00
+43,jason.mitchell@company.com,Urgent: Waiting for your response to proceed,69,High,"waiting, waiting for, response, urgent, waiting (subject), waiting for (subject), response (subject), urgent (subject)",15,2024-01-17 13:00:00
+32,carol.allen@enterprise.com,Critical security update needed now,68,High,"emergency, need, critical, now (subject), need (subject), critical (subject)",16,2024-01-17 07:30:00
+34,amanda.wright@corporate.com,Quickly need confirmation on delivery,64,High,"waiting, quickly, need, confirm, quickly (subject), need (subject), confirm (subject)",17,2024-01-17 08:30:00
+4,lisa.brown@enterprise.com,Time-sensitive: Budget approval needed within 24 hours,62,High,"within 24 hours, time-sensitive, need, within 24 hours (subject), time-sensitive (subject), need (subject), approval needed (subject)",18,2024-01-15 12:20:00
+14,linda.anderson@firm.com,Critical: Meeting moved to this afternoon,62,High,"need, this afternoon, critical, this afternoon (subject), critical (subject)",19,2024-01-16 09:30:00
+52,melissa.collins@prospect.com,ASAP - Client ready to sign needs final pricing,61,High,"now, need, asap, need (subject), asap (subject)",20,2024-01-18 08:30:00
+23,matthew.harris@client.com,Deadline approaching - need final documents,60,High,"please, quickly, need, deadline, need (subject), deadline (subject)",21,2024-01-16 14:00:00
+25,donald.clark@enterprise.com,Important: Contract renewal discussion needed,60,High,"soon, important, expire, expires, important (subject), need (subject)",22,2024-01-16 15:00:00
+13,richard.wilson@corporate.com,Immediately need contract revisions,54,High,"immediately, need, waiting, immediately (subject), need (subject)",23,2024-01-16 09:00:00
+44,heather.perez@client.com,Soon need decision on vendor selection,40,Medium,"soon, need, soon (subject), need (subject)",24,2024-01-17 13:30:00
+45,adam.roberts@prospect.com,Important meeting tomorrow - need materials,40,Medium,"please, important, need, important (subject), need (subject)",25,2024-01-17 14:00:00
 24,betty.sanchez@prospect.com,Time constraint on project approval,32,Medium,"need, time constraint, time constraint (subject)",26,2024-01-16 14:30:00
-33,brian.king@startup.com,Must have answer within hours,32,Medium,"waiting, within hours (subject), within hour (subject)",27,2024-01-17 08:00:00
-7,robert.garcia@firm.com,Following up on our conversation,31,Medium,"follow up, let me know, now",28,2024-01-15 14:30:00
-40,ruth.baker@startup.com,Monthly report,31,Medium,"need, let me know, now",29,2024-01-17 11:30:00
-15,charles.thomas@company.com,Quick approval needed,24,Low,"need, need (subject), approval needed (subject)",30,2024-01-16 10:00:00
-17,joseph.moore@prospect.com,Schedule a call when you can,23,Low,"let me know, now",31,2024-01-16 11:00:00
-37,jacob.scott@client.com,General inquiry,16,Low,"get back, please",32,2024-01-17 10:00:00
+33,brian.king@startup.com,Must have answer within hours,32,Medium,"waiting, within hour (subject), within hours (subject)",27,2024-01-17 08:00:00
+7,robert.garcia@firm.com,Following up on our conversation,31,Medium,"now, let me know, follow up",28,2024-01-15 14:30:00
+40,ruth.baker@startup.com,Monthly report,31,Medium,"now, let me know, need",29,2024-01-17 11:30:00
+15,charles.thomas@company.com,Quick approval needed,24,Low,"need, approval needed (subject), need (subject)",30,2024-01-16 10:00:00
+17,joseph.moore@prospect.com,Schedule a call when you can,23,Low,"now, let me know",31,2024-01-16 11:00:00
+37,jacob.scott@client.com,General inquiry,16,Low,"please, get back",32,2024-01-17 10:00:00
 49,brandon.parker@firm.com,Office relocation notice,15,Low,now,33,2024-01-17 16:00:00
 9,william.rodriguez@client.com,Thank you for the demo,12,Low,soon,34,2024-01-15 15:30:00
 19,thomas.martin@startup.com,Great meeting yesterday,12,Low,soon,35,2024-01-16 12:00:00
